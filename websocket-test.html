@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sensor WebSocket Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+  </head>
+  <body>
+    <h2>Sensor WebSocket Test</h2>
+    <div>
+      <button onclick="connect()">Connect</button>
+      <button onclick="disconnect()">Disconnect</button>
+    </div>
+    <div>
+      <h3>Messages:</h3>
+      <pre
+        id="messages"
+        style="
+          height: 400px;
+          overflow-y: scroll;
+          background-color: #f4f4f4;
+          padding: 10px;
+        "
+      ></pre>
+    </div>
+
+    <script>
+      let stompClient = null;
+      const messagesArea = document.getElementById('messages');
+
+      function connect() {
+        const socket = new SockJS('http://localhost:8081/ws');
+        stompClient = Stomp.over(socket);
+
+        stompClient.connect(
+          {},
+          function (frame) {
+            appendMessage('Connected: ' + frame);
+
+            stompClient.subscribe('/topic/sensor', function (message) {
+              const sensorData = JSON.parse(message.body);
+              appendMessage('Received: ' + JSON.stringify(sensorData, null, 2));
+            });
+          },
+          function (error) {
+            appendMessage('Error: ' + error);
+          }
+        );
+      }
+
+      function disconnect() {
+        if (stompClient !== null) {
+          stompClient.disconnect();
+          appendMessage('Disconnected');
+        }
+      }
+
+      function appendMessage(message) {
+        const currentTime = new Date().toLocaleTimeString();
+        messagesArea.innerHTML += `[${currentTime}] ${message}\n`;
+        messagesArea.scrollTop = messagesArea.scrollHeight;
+      }
+    </script>
+  </body>
+</html>

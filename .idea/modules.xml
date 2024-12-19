@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gateway-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/gateway-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/sensor-noauth.iml" filepath="$PROJECT_DIR$/.idea/sensor-noauth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sensor-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/sensor-service.main.iml" />
+    </modules>
+  </component>
+</project>
